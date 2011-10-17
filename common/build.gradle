@@ -1,0 +1,17 @@
+/**
+ * The "common" project build file
+ */
+description = "Defines classes that are common to multiple projects";
+
+apply plugin: 'java';
+apply plugin: 'eclipse';
+
+dependencies {
+	compile 'commons-collections:commons-collections:3.2';
+	testCompile 'junit:junit:4.+';
+}
+
+task initProject << {
+	sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
+	sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
+}

@@ -1,0 +1,10 @@
+/**
+ * This is the example project's build file
+ * @author jburbridge
+ */
+
+description = "Just an example project that holds some strings";
+
+dependencies {
+	compile project(":common");
+}

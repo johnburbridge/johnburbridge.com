@@ -1,0 +1,23 @@
+/**
+ * Build file for johnburbridge.com
+ */
+
+ allprojects {
+	 repositories {
+		 mavenRepo urls: localBuildServerURL;
+	}
+ }
+
+ task explodeServer(type: Copy) {
+	from zipTree('tools/' + serverVersion + '.zip');
+	into 'server';
+	include serverVersion + '/bin/**';
+	include serverVersion + '/conf/**';
+	include serverVersion + '/lib/**';
+	include serverVersion + '/webapps';
+	include serverVersion + '/work/**';
+}
+
+task startTomcat << {
+	println 'Starting ' + serverVersion + ' in ' + rootProject;
+}

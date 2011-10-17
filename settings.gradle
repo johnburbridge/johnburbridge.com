@@ -1,0 +1,2 @@
+include ':applications:example',
+  'common';
