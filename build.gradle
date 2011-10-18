@@ -2,13 +2,16 @@
  * Build file for johnburbridge.com
  */
 
- allprojects {
+allprojects {
+	 def repositoryUserName = hasProperty('repositoryUserName') ? repositoryUserName : '';
+	 def repositoryPassword = hasProperty('repositoryPassword') ? repositoryPassword : '';
 	 repositories {
-		 mavenRepo urls: localBuildServerURL;
+		 mavenRepo urls: repositoryUrl;
 	}
- }
+}
 
- task explodeServer(type: Copy) {
+/*
+task explodeServer(type: Copy) {
 	from zipTree('tools/' + serverVersion + '.zip');
 	into 'server';
 	include serverVersion + '/bin/**';
@@ -17,7 +20,4 @@
 	include serverVersion + '/webapps';
 	include serverVersion + '/work/**';
 }
-
-task startTomcat << {
-	println 'Starting ' + serverVersion + ' in ' + rootProject;
-}
+*/
