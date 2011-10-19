@@ -1,2 +1,3 @@
 include ':applications:example',
-  'common';
+  ':grails:jukebox',
+  ':common';
