@@ -1,0 +1,5 @@
+/**
+* This is the virtual jukebox project's build file
+* @author jburbridge
+*/
+description = "Project to build a virtual on-line jukebox";
