@@ -1,0 +1,16 @@
+/**
+* This is the blog project's build file
+* @author jburbridge
+*/
+
+description = "The ROOT webapp for johnburbridge.com"
+
+apply plugin: 'jetty';
+
+dependencies {
+	compile project(":apps:blog"),
+		project(":apps:jukebox"),
+		project(":common");
+}
+
+// jettyRun.jettyConfig = new File("src/main/resources/jetty.xml");

@@ -1,3 +1,6 @@
-include ':apps:example',
+include ':apps:blog',
+  ':apps:example',
   ':apps:jukebox',
-  ':common';
+  ':common',
+  ':webapps:ROOT';
+  

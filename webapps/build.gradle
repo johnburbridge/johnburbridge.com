@@ -1,0 +1,26 @@
+/**
+ * Default settings for all webapps
+ * @author jburbridge
+ */
+description = "This project contains the defaults for all webapps";
+
+subprojects {
+	
+	apply plugin: 'war';
+	apply plugin: 'eclipse';
+	apply plugin: 'maven';
+	apply plugin: 'project-report';
+	
+	sourceCompatibility = 1.6;
+	targetCompatibility = 1.6;
+	
+	dependencies {
+		testCompile 'junit:junit:4.+';
+	}
+	
+	task initProject << {
+		sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
+		sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
+		// sourceSets.all*.webapp.srcDirs*.each { it.mkdirs() }
+	}
+}

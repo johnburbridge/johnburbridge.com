@@ -1,6 +1,6 @@
 package com.johnburbridge.www;
 
-import static com.johnburbridge.common.CONSTANTS.*;
+import static com.johnburbridge.common.Constants.*;
 
 /**
  * A simple hello pojo

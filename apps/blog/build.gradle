@@ -1,0 +1,13 @@
+/**
+* This is the blog project's build file
+* @author jburbridge
+*/
+
+description = "A simple blog API that uses hibernate";
+
+dependencies {
+	compile 'org.hibernate:hibernate-core:3.6+';
+	runtime 'org.slf4j:slf4j-simple:1.6.1',
+		'javassist:javassist:3.12.0.GA';
+	testRuntime 'com.h2database:h2:1.2.140';
+}
