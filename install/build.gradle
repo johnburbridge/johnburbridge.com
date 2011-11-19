@@ -20,13 +20,13 @@ task makeHttpd(type: Exec, dependsOn: 'configureHttpdInstaller') {
 
 task configureHttpdInstaller(type: Exec, dependsOn: 'extractHttpdInstaller') {
     workingDir httpdVersion;
-	executable './configure';
-	args '--prefix=' + rootProject.rootDir + httpdPath;
+    executable './configure';
+    args '--prefix=' + rootProject.rootDir + httpdPath;
 }
 
 task extractHttpdInstaller(type: Exec, dependsOn: ['cleanHttpdInstaller', 'downloadHttpd']) {
-	executable '/bin/tar';
-	args '-xzvf', httpdVersion + '.tar.gz';
+    executable '/bin/tar';
+    args '-xzvf', httpdVersion + '.tar.gz';
 }
 
 task downloadHttpd << {
@@ -41,21 +41,21 @@ task cleanHttpdInstaller(type: Delete) {
 
 /*
 task explodeTomcatServer(type: Copy) {
-	from zipTree('tools/' + tomcatVersion + '.zip');
-	into 'servers/tomcat';
-	include serverVersion + '/bin/**';
-	include serverVersion + '/conf/**';
-	include serverVersion + '/lib/**';
-	include serverVersion + '/webapps';
-	include serverVersion + '/work/**';
+    from zipTree('tools/' + tomcatVersion + '.zip');
+    into 'servers/tomcat';
+    include serverVersion + '/bin/**';
+    include serverVersion + '/conf/**';
+    include serverVersion + '/lib/**';
+    include serverVersion + '/webapps';
+    include serverVersion + '/work/**';
 }
 task explodeHttpdServer(type: Copy) {
-	from zipTree('tools/' + httpdVersion + '.gz');
-	into 'servers/tomcat';
-	include serverVersion + '/bin/**';
-	include serverVersion + '/conf/**';
-	include serverVersion + '/lib/**';
-	include serverVersion + '/webapps';
-	include serverVersion + '/work/**';
+    from zipTree('tools/' + httpdVersion + '.gz');
+    into 'servers/tomcat';
+    include serverVersion + '/bin/**';
+    include serverVersion + '/conf/**';
+    include serverVersion + '/lib/**';
+    include serverVersion + '/webapps';
+    include serverVersion + '/work/**';
 }
 */

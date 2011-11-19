@@ -1,0 +1,18 @@
+ECLIPSE INTEGRATION NOTES:
+
+To integrate the Apache server into your eclipse for development, follow these steps:
+
+1. Go to Preferences -> Server --> Runtime Environments
+2. Click on New --> Apache Tomcat 7.0
+   - Installation directory: <full path to project root>/install/apache-tomcat-7.0.12
+   - JRE: default workstation JRE
+3. From the menu bar, select Window --> Show view --> Servers
+4. In the Servers view, right click New server 
+   - Type of server: Tomcat v7.0 Server
+   - Server's host name: localhost
+   - Server name: the default is cool
+   - Server runtime environment: Apache Tomcat v7.0
+5. To test, from you webapp select Run As --> Run on server
+
+Voilá! Eclipse should have launched the internal browser window defaulting to the context of the project
+

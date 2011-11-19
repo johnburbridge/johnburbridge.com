@@ -2,6 +2,8 @@
  * Build file for johnburbridge.com
  */
 
+apply plugin: 'groovy';
+
 allprojects {
 	 def repositoryUserName = hasProperty('repositoryUserName') ? repositoryUserName : '';
 	 def repositoryPassword = hasProperty('repositoryPassword') ? repositoryPassword : '';
