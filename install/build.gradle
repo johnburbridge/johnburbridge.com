@@ -1,0 +1,61 @@
+/**
+ * A collection of tasks for setting up the project's tools, such as apache httpd, tomcat,
+ * and the gradlewrapper 
+ */
+task setupHttpd(dependsOn: 'makeInstallHttpd') << {
+    description = 'Sets up the Apache ' + httpdVersion + ' server';
+    println 'Apache ' + httpdVersion + ' was installed under ' + rootProject.rootDir + httpdPath;
+}
+
+task makeInstallHttpd(type: Exec, dependsOn: 'makeHttpd') {
+    workingDir httpdVersion;
+    executable 'make';
+    args 'install';
+}
+
+task makeHttpd(type: Exec, dependsOn: 'configureHttpdInstaller') {
+    workingDir httpdVersion;
+    executable 'make';
+}
+
+task configureHttpdInstaller(type: Exec, dependsOn: 'extractHttpdInstaller') {
+    workingDir httpdVersion;
+	executable './configure';
+	args '--prefix=' + rootProject.rootDir + httpdPath;
+}
+
+task extractHttpdInstaller(type: Exec, dependsOn: ['cleanHttpdInstaller', 'downloadHttpd']) {
+	executable '/bin/tar';
+	args '-xzvf', httpdVersion + '.tar.gz';
+}
+
+task downloadHttpd << {
+    def fileName = httpdVersion + '.tar.gz';
+    ant.get(src: 'http://mirror.olnevhost.net/pub/apache//httpd/' + fileName,
+            dest: fileName, verbose: true);
+}
+
+task cleanHttpdInstaller(type: Delete) {
+    delete httpdVersion;
+}
+
+/*
+task explodeTomcatServer(type: Copy) {
+	from zipTree('tools/' + tomcatVersion + '.zip');
+	into 'servers/tomcat';
+	include serverVersion + '/bin/**';
+	include serverVersion + '/conf/**';
+	include serverVersion + '/lib/**';
+	include serverVersion + '/webapps';
+	include serverVersion + '/work/**';
+}
+task explodeHttpdServer(type: Copy) {
+	from zipTree('tools/' + httpdVersion + '.gz');
+	into 'servers/tomcat';
+	include serverVersion + '/bin/**';
+	include serverVersion + '/conf/**';
+	include serverVersion + '/lib/**';
+	include serverVersion + '/webapps';
+	include serverVersion + '/work/**';
+}
+*/

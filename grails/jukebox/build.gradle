@@ -8,7 +8,7 @@ description = "Project to build a virtual on-line jukebox using grails";
 buildscript {
 	repositories {
 		mavenCentral()
-		mavenRepo urls: [repositoryUrl, 
+		mavenRepo url: [repositoryUrl, 
 			"http://repository.jboss.org/maven2/"];
 	}
 

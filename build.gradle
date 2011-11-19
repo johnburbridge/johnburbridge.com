@@ -6,18 +6,6 @@ allprojects {
 	 def repositoryUserName = hasProperty('repositoryUserName') ? repositoryUserName : '';
 	 def repositoryPassword = hasProperty('repositoryPassword') ? repositoryPassword : '';
 	 repositories {
-		 mavenRepo urls: repositoryUrl;
+		 mavenRepo url: repositoryUrl;
 	}
 }
-
-/*
-task explodeServer(type: Copy) {
-	from zipTree('tools/' + serverVersion + '.zip');
-	into 'server';
-	include serverVersion + '/bin/**';
-	include serverVersion + '/conf/**';
-	include serverVersion + '/lib/**';
-	include serverVersion + '/webapps';
-	include serverVersion + '/work/**';
-}
-*/
