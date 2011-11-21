@@ -13,4 +13,10 @@ dependencies {
 		project(":common");
 }
 
+war {
+    // strip out the version from the artifact
+    // TODO: look into cargo plug-in for automating the deploy
+    archiveName = baseName + '.war';
+}
+
 // jettyRun.jettyConfig = new File("src/main/resources/jetty.xml");

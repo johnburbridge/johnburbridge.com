@@ -1,6 +1,19 @@
+# ignore dot files by default
 .*
+
+# but don't ignore this file :)
+!.gitignore
+
+# gradle build folders
 build
 build/*
+
+# eclipse build output
 bin
 bin/*
 
+# apache folders
+logs
+logs/*
+work
+work/*
