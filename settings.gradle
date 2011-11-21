@@ -3,5 +3,6 @@ include ':apps:blog',
   ':apps:jukebox',
   ':common',
   ':install',
+  ':servers',
   ':webapps:ROOT';
   

@@ -2,6 +2,15 @@
  * A collection of tasks for setting up the project's tools, such as apache httpd, tomcat,
  * and the gradlewrapper 
  */
+
+description = "Tasks for setting up the project's tools such ash apache httpd, tomcat and gradlew"
+
+task downloadTomcat << {
+    def fileName = 'apache-tomcat-' + tomcatVersion + '.zip';
+    ant.get(src: 'http://apache.opensourceresources.org/tomcat/tomcat-7/v' + tomcatVersion + '/bin/' + fileName,
+            dest: fileName, verbose: true);
+}
+
 task setupHttpd(dependsOn: 'makeInstallHttpd') << {
     description = 'Sets up the Apache ' + httpdVersion + ' server';
     println 'Apache ' + httpdVersion + ' was installed under ' + rootProject.rootDir + httpdPath;
