@@ -5,7 +5,7 @@
 
 description = "The ROOT webapp for johnburbridge.com"
 
-apply plugin: 'jetty';
+def cargoPort = 9090;
 
 dependencies {
 	compile project(":apps:blog"),
@@ -18,5 +18,29 @@ war {
     // TODO: look into cargo plug-in for automating the deploy
     archiveName = baseName + '.war';
 }
+
+cargo {
+    containerId = 'tomcat7x';
+    port = cargoPort;
+    context = 'ROOT';
+/*
+    remote {
+        hostname = 'cloud.internal.it'
+        username = 'superuser'
+        password = 'secretpwd'
+    }
+*/
+    local {
+        homeDir = file(rootProject.rootDir.toString() + tomcatHome);
+    }
+}
+
+task getPing() << {
+    URL url = new URL("http://localhost:$cargoPort/ping.jsp");
+    println url.text;
+}
+
+
+
 
 // jettyRun.jettyConfig = new File("src/main/resources/jetty.xml");

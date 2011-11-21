@@ -5,11 +5,11 @@
 *
 * Implementation notes:
 *
-* The gradle / java dependencies which this plug-in provides have been uploaded to our internal artifact proxy as a
+* The gradle / java dependencies which this plug-in provides have been uploaded to the internal artifact proxy as a
 * maven-style dependency, and are referenced below as a classpath artifact. If the artifact server is down or reinitialized
 * this plug-in will not work unless the jar file (gradle_cobertura-$version.jar) is primed and uploaded to the local
 * artifact proxy, located here:
-* http://build.home.johnburbridge.net:8080/artifactory/libs-release-local/gradle_cobertura/gradle_cobertura
+* http://repo.johnburbridge.net:8080/artifactory/libs-release-local/gradle_cobertura/gradle_cobertura
 *
 * @author jburbridge
 */

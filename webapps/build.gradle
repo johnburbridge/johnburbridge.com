@@ -5,22 +5,33 @@
 description = "This project contains the defaults for all webapps";
 
 subprojects {
-	
-	apply plugin: 'war';
-	apply plugin: 'eclipse-wtp';
-	apply plugin: 'maven';
-	apply plugin: 'project-report';
-	
-	sourceCompatibility = 1.6;
-	targetCompatibility = 1.6;
-	
-	dependencies {
-		testCompile 'junit:junit:4.+';
-	}
-	
-	task initProject << {
-		sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
-		sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
-		// sourceSets.all*.webapp.srcDirs*.each { it.mkdirs() }
-	}
+    
+    apply plugin: 'war';
+    apply plugin: 'eclipse-wtp';
+    apply plugin: 'maven';
+    apply plugin: 'project-report';
+    
+    sourceCompatibility = 1.6;
+    targetCompatibility = 1.6;
+    
+    /**
+     * Adds cargo support to all subprojects
+     */
+    buildscript {
+        apply from: rootDir.path + '/cargo.gradle';
+    }
+    
+    dependencies {
+        def cargoVersion = '1.1.1';
+        cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion",
+              "org.codehaus.cargo:cargo-ant:$cargoVersion",
+              'jaxen:jaxen:1.1.1';
+        testCompile 'junit:junit:4.+';
+    }
+    
+    task initProject << {
+        sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
+        sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
+        // sourceSets.all*.webapp.srcDirs*.each { it.mkdirs() }
+    }
 }
