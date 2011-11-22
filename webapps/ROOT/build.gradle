@@ -12,10 +12,12 @@ sourceSets {
 
 dependencies {
 	compile project(":apps:blog"),
-		project(":apps:jukebox"),
-		project(":common"),
-		"javax.servlet:servlet-api:2.5";
-	testCompile "org.mockito:mockito-all:1.8.5";
+	   project(":apps:jukebox"),
+	   project(":common"),
+	   "javax.servlet:servlet-api:2.5";
+	testCompile "org.mockito:mockito-all:1.8.5",
+	   "junit:junit:4.+";
+    integrationCompile "junit:junit:4.+";
 }
 
 /**
@@ -41,7 +43,15 @@ cargo {
 
 cargoStartLocal.dependsOn(project(':install').explodeTomcatServer);
 
-task getPing() << {
-    URL url = new URL("http://localhost:$cargoLocalPort/ping.jsp");
-    println url.text;
+task integrationTest(type: Test, dependsOn: [compileIntegrationJava, cargoStartLocal]) {
+    testClassesDir = sourceSets.integration.output.classesDir;
+    classpath = sourceSets.integration.runtimeClasspath;
 }
+
+task runIntegrationTests(dependsOn: integrationTest) {
+    doLast {
+        cargoStopLocal
+    }
+}
+
+check.dependsOn(runIntegrationTests);
