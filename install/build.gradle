@@ -6,16 +6,19 @@
 description = "Tasks for setting up the project's tools such ash apache httpd, tomcat and gradlew"
 
 def tomcatFileName = 'apache-tomcat-' + tomcatVersion;
-def tomcatZipFileName = 'build/tmp/' + tomcatFileName + '.zip';
+def tomcatZipFileName = tomcatFileName + '.zip';
+def tomcatZipFileLocation = project.buildDir.toString() + '/tmp/' + tomcatZipFileName;
 def downloadUrl = artifactoryRoot + '/ext-release-local/tools/apache-tomcat/' + tomcatZipFileName;
 
 /**
  * Downloads a copy of tomcat from the local repository if it hasn't already been downloaded
  */
 task downloadTomcat {
-    outputs.file file(tomcatZipFileName); 
+    outputs.file file(tomcatZipFileLocation); 
     doLast {
-        ant.get(src: downloadUrl, dest: tomcatZipFileName, verbose: true);
+//        project.buildDir.mkdirs();
+        file(project.buildDir.toString() + '/tmp/').mkdirs();
+        ant.get(src: downloadUrl, dest: tomcatZipFileLocation, verbose: true);
     }
 }
 
@@ -23,11 +26,11 @@ task downloadTomcat {
  * Expand the downloaded archive if it hasn't already been expanded
  */
 task explodeTomcatServer(dependsOn: downloadTomcat) {
-    inputs.file file(tomcatZipFileName); 
+    inputs.file file(tomcatZipFileLocation); 
     outputs.dir file(tomcatFileName); 
     doLast {
         copy {
-            from zipTree(tomcatZipFileName);
+            from zipTree(tomcatZipFileLocation);
             into project.projectDir;
             include tomcatFileName + '/bin/**';
             include tomcatFileName + '/conf/**';
