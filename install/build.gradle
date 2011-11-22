@@ -6,7 +6,7 @@
 description = "Tasks for setting up the project's tools such ash apache httpd, tomcat and gradlew"
 
 def tomcatFileName = 'apache-tomcat-' + tomcatVersion;
-def tomcatZipFileName = tomcatFileName + '.zip';
+def tomcatZipFileName = 'build/tmp/' + tomcatFileName + '.zip';
 def downloadUrl = artifactoryRoot + '/ext-release-local/tools/apache-tomcat/' + tomcatZipFileName;
 
 /**
@@ -38,7 +38,7 @@ task explodeTomcatServer(dependsOn: downloadTomcat) {
         // make sure that the shell scripts are set +x on linux / macs
         if (System.getProperty("os.name").toLowerCase().indexOf("win") < 0) {
             FileTree tree = fileTree(tomcatFileName + '/bin').include('**/*.sh');
-            tree.each {File file ->
+            tree.each { File file ->
                 println file;
                 file.setExecutable(true);
             }
