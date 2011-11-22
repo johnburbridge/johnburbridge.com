@@ -1,46 +1,47 @@
 /**
-* This is the blog project's build file
-* @author jburbridge
-*/
+ * This is the site's ROOT webapp project
+ * @author jburbridge
+ */
 
 description = "The ROOT webapp for johnburbridge.com"
+def cargoLocalPort = 9090;
 
-def cargoPort = 9090;
+sourceSets {
+    integration
+}
 
 dependencies {
 	compile project(":apps:blog"),
 		project(":apps:jukebox"),
-		project(":common");
+		project(":common"),
+		"javax.servlet:servlet-api:2.5";
+	testCompile "org.mockito:mockito-all:1.8.5";
 }
 
-war {
-    // strip out the version from the artifact
-    // TODO: look into cargo plug-in for automating the deploy
-    archiveName = baseName + '.war';
-}
-
+/**
+ * deploys the newly built war file to a remote tomcat instance.
+ * the remote closure below lists the default values for the deployment
+ * which can be overriden from the command line thusly:
+ * gradle -Pcargo.port=8081 -Pcargo.hostname=foo.bar.com \
+ *   -Pusername=myusername -Pcargo.password=s3cr3tpwd cargoDeployRemote 
+ **/
 cargo {
     containerId = 'tomcat7x';
-    port = cargoPort;
+    port = cargoLocalPort;
     context = 'ROOT';
-/*
+    
     remote {
-        hostname = 'cloud.internal.it'
-        username = 'superuser'
-        password = 'secretpwd'
+        hostname = 'localhost';
+        username = 'jburbridge';
     }
-*/
     local {
-        homeDir = file(rootProject.rootDir.toString() + tomcatHome);
+        homeDir = file(project.rootDir.toString() + tomcatHome);
     }
 }
+
+cargoStartLocal.dependsOn(project(':install').explodeTomcatServer);
 
 task getPing() << {
-    URL url = new URL("http://localhost:$cargoPort/ping.jsp");
+    URL url = new URL("http://localhost:$cargoLocalPort/ping.jsp");
     println url.text;
 }
-
-
-
-
-// jettyRun.jettyConfig = new File("src/main/resources/jetty.xml");

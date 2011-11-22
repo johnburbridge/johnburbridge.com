@@ -32,6 +32,6 @@ subprojects {
     task initProject << {
         sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
         sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
-        // sourceSets.all*.webapp.srcDirs*.each { it.mkdirs() }
+        file(webAppDirName).mkdirs();
     }
 }

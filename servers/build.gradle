@@ -4,22 +4,42 @@
 
 description = "This project contains the start / stop scripts for the individual server instances";
 
-def catalinaHome = rootProject.rootDir.toString() + tomcatHome;
+def startUp = '/bin/startup.sh';
+def shutDown = '/bin/shutdown.sh';
+def catalinaHome = project.rootDir.toString() + tomcatHome;
+
+task printStuff << {
+    println 'project(\':servers\').path: ' + project(':servers').path;
+    println 'project.path: ' + project.path;
+    println 'project.rootDir: ' + project.rootDir;
+    println 'project.projectDir: ' + project.projectDir;
+    println 'getCatalinaBaseDir(foo): ' + getCatalinaBaseDir('foo');
+}
 
 task startCIServer(type: Exec) {
     environment('CATALINA_HOME',  catalinaHome);
-    environment('CATALINA_BASE', rootProject.rootDir.toString() + '/servers/ci');
-    executable(catalinaHome + '/bin/startup.sh');
+    environment('CATALINA_BASE', getCatalinaBaseDir('ci'));
+    executable(catalinaHome + startUp);
 }
 
 task stopCIServer(type: Exec) {
     environment('CATALINA_HOME',  catalinaHome);
-    environment('CATALINA_BASE', rootProject.rootDir.toString() + '/servers/ci');
-    executable(catalinaHome + '/bin/shutdown.sh');
+    environment('CATALINA_BASE', getCatalinaBaseDir('ci'));
+    executable(catalinaHome + shutDown);
 }
 
 task startWwwServer(type: Exec) {
     environment('CATALINA_HOME',  catalinaHome);
-    environment('CATALINA_BASE', rootProject.rootDir.toString() + '/servers/www');
-    executable(catalinaHome + '/bin/startup.sh');
+    environment('CATALINA_BASE', getCatalinaBaseDir('www'));
+    executable(catalinaHome + startUp);
+}
+
+task stopWwwServer(type: Exec) {
+    environment('CATALINA_HOME',  catalinaHome);
+    environment('CATALINA_BASE', getCatalinaBaseDir('www'));
+    executable(catalinaHome + shutDown);
+}
+
+public String getCatalinaBaseDir(String serverName) {
+    return project.projectDir.toString() + '/' + serverName;
 }

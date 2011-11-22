@@ -5,10 +5,45 @@
 
 description = "Tasks for setting up the project's tools such ash apache httpd, tomcat and gradlew"
 
-task downloadTomcat << {
-    def fileName = 'apache-tomcat-' + tomcatVersion + '.zip';
-    ant.get(src: 'http://apache.opensourceresources.org/tomcat/tomcat-7/v' + tomcatVersion + '/bin/' + fileName,
-            dest: fileName, verbose: true);
+def tomcatFileName = 'apache-tomcat-' + tomcatVersion;
+def tomcatZipFileName = tomcatFileName + '.zip';
+def downloadUrl = artifactoryRoot + '/ext-release-local/tools/apache-tomcat/' + tomcatZipFileName;
+
+/**
+ * Downloads a copy of tomcat from the local repository if it hasn't already been downloaded
+ */
+task downloadTomcat {
+    outputs.file file(tomcatZipFileName); 
+    doLast {
+        ant.get(src: downloadUrl, dest: tomcatZipFileName, verbose: true);
+    }
+}
+
+/**
+ * Expand the downloaded archive if it hasn't already been expanded
+ */
+task explodeTomcatServer(dependsOn: downloadTomcat) {
+    inputs.file file(tomcatZipFileName); 
+    outputs.dir file(tomcatFileName); 
+    doLast {
+        copy {
+            from zipTree(tomcatZipFileName);
+            into project.projectDir;
+            include tomcatFileName + '/bin/**';
+            include tomcatFileName + '/conf/**';
+            include tomcatFileName + '/lib/**';
+            include tomcatFileName + '/webapps/**';
+            include tomcatFileName + '/work/**';
+        }
+        // make sure that the shell scripts are set +x on linux / macs
+        if (System.getProperty("os.name").toLowerCase().indexOf("win") < 0) {
+            FileTree tree = fileTree(tomcatFileName + '/bin').include('**/*.sh');
+            tree.each {File file ->
+                println file;
+                file.setExecutable(true);
+            }
+        }
+    }
 }
 
 task setupHttpd(dependsOn: 'makeInstallHttpd') << {
@@ -48,23 +83,3 @@ task cleanHttpdInstaller(type: Delete) {
     delete httpdVersion;
 }
 
-/*
-task explodeTomcatServer(type: Copy) {
-    from zipTree('tools/' + tomcatVersion + '.zip');
-    into 'servers/tomcat';
-    include serverVersion + '/bin/**';
-    include serverVersion + '/conf/**';
-    include serverVersion + '/lib/**';
-    include serverVersion + '/webapps';
-    include serverVersion + '/work/**';
-}
-task explodeHttpdServer(type: Copy) {
-    from zipTree('tools/' + httpdVersion + '.gz');
-    into 'servers/tomcat';
-    include serverVersion + '/bin/**';
-    include serverVersion + '/conf/**';
-    include serverVersion + '/lib/**';
-    include serverVersion + '/webapps';
-    include serverVersion + '/work/**';
-}
-*/

@@ -2,6 +2,21 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<servlet>
+		<description>
+		A simple servlet used for monitoring checks</description>
+		<display-name>PingCheck</display-name>
+		<servlet-name>PingCheck</servlet-name>
+		<servlet-class>com.johnburbridge.www.PingCheck</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PingCheck</servlet-name>
+		<url-pattern>/PingCheck</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PingCheck</servlet-name>
+		<url-pattern>/ping.jsp</url-pattern>
+	</servlet-mapping>
 
 <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

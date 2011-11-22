@@ -11,8 +11,9 @@ build
 bin
 
 # stuff we downloaded from the interwebs
-/install/*.gz
-/install/*.zip
+/install/*
+!/install/build.gradle
+!/install/ECLIPSE-README
 
 # apache folders
 logs
