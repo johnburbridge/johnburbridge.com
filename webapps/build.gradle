@@ -22,12 +22,35 @@ subprojects {
     }
     
     dependencies {
+        testCompile 'junit:junit:4.+';
         def cargoVersion = '1.1.1';
         cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion",
               "org.codehaus.cargo:cargo-ant:$cargoVersion",
               'jaxen:jaxen:1.1.1';
-        testCompile 'junit:junit:4.+';
     }
+
+    test {
+        forkEvery = 10;
+        maxParallelForks = 4;
+    }
+
+    /**
+     * Adds cobertura support to all subprojects
+     */
+    buildscript {
+        apply from: rootDir.path + '/cobertura.gradle';
+    }
+
+    /**
+    * see gradle.properties for more details
+    **/
+   uploadArchives {
+       repositories.mavenDeployer {
+           repository(url: repositoryUploadUrl) {
+               authentication(userName: repositoryUserName, password: repositoryPassword);
+           }
+       }
+   }
     
     task initProject << {
         sourceSets.all*.java.srcDirs*.each { it.mkdirs() }

@@ -1,0 +1,6 @@
+# grails-app
+lib
+scripts
+test
+# web-app
+application.properties

@@ -3,7 +3,8 @@
  * @author jburbridge
  */
 
-description = "The ROOT webapp for johnburbridge.com"
+description = "The ROOT webapp for johnburbridge.com";
+
 def cargoLocalPort = 9090;
 
 sourceSets {
@@ -11,13 +12,21 @@ sourceSets {
 }
 
 dependencies {
-	compile project(":apps:blog"),
-	   project(":apps:jukebox"),
-	   project(":common"),
-	   "javax.servlet:servlet-api:2.5";
-	testCompile "org.mockito:mockito-all:1.8.5",
-	   "junit:junit:4.+";
-    integrationCompile "junit:junit:4.+";
+
+    compile project(":apps:blog"),
+        project(":apps:jukebox"),
+        project(":common"),
+        "javax.servlet:servlet-api:2.5";
+        
+    testCompile "org.mockito:mockito-all:1.8.5",
+        "junit:junit:4.+";
+        
+    integrationCompile "junit:junit:4.+", 
+        sourceSets.main.output, 
+        configurations.testCompile, 
+        sourceSets.test.output;
+        
+    integrationRuntime configurations.testRuntime;
 }
 
 /**
@@ -41,17 +50,17 @@ cargo {
     }
 }
 
-cargoStartLocal.dependsOn(project(':install').explodeTomcatServer);
-
-task integrationTest(type: Test, dependsOn: [compileIntegrationJava, cargoStartLocal]) {
+/**
+ * Defines the test task for the intergration source set
+ **/
+task integrationTest(type: Test) {
     testClassesDir = sourceSets.integration.output.classesDir;
     classpath = sourceSets.integration.runtimeClasspath;
 }
 
-task runIntegrationTests(dependsOn: integrationTest) {
-    doLast {
-        cargoStopLocal
-    }
-}
+// slot the integration tests after war assembly and regular checks, but before build
+cargoStartLocal.dependsOn([assemble, check, project(':install').explodeTomcatServer]);
+integrationTest.dependsOn(cargoStartLocal);
+cargoStopLocal.dependsOn(integrationTest);
+build.dependsOn(cargoStopLocal);
 
-check.dependsOn(runIntegrationTests);

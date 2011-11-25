@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author jburbridge
  * @since 11/22/2011
  */
-public class PingCheck extends HttpServlet {
+public class PingServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -2309037653849090772L;
 	private static final String ALIVE = "ALIVE";

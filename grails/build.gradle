@@ -1,0 +1,8 @@
+/**
+ * Defaults for all of the grails projects
+ */
+
+subprojects {
+
+}
+ 

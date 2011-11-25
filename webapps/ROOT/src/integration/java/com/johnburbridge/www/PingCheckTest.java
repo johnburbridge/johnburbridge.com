@@ -12,11 +12,12 @@ import java.net.URL;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class PingCheckIntergrationTest {
+public class PingCheckTest {
 
 	private static final String CHECK_VALUE = "ALIVE";
 	private static final String DEFAULT_HOSTNAME = "localhost";
 	private static final String DEFAULT_PORT = "9090";
+	private static final String PING_PATH = "/ping";
 	private static URL url;
 	
 	@BeforeClass
@@ -29,7 +30,7 @@ public class PingCheckIntergrationTest {
 				System.getProperty("cargo.port") : DEFAULT_PORT;
 				
 		url = new URL(new StringBuilder("http://").append(cargoHost)
-				.append(":").append(cargoPort).append("/PingCheck").toString());
+				.append(":").append(cargoPort).append(PING_PATH).toString());
 	}
 	
 	@Test

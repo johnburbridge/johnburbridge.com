@@ -9,46 +9,45 @@
 description = "Default build settings for applications";
 
 subprojects {
-	
-	apply plugin: 'java';
-	apply plugin: 'eclipse';
-	apply plugin: 'maven';
-	apply plugin: 'project-report';
+    
+    apply plugin: 'java';
+    apply plugin: 'eclipse';
+    apply plugin: 'maven';
+    apply plugin: 'project-report';
 
-	sourceCompatibility = 1.6;
-	targetCompatibility = 1.6;
-	
-	dependencies {
-		compile 'commons-collections:commons-collections:3.2';
-		testCompile 'junit:junit:4.+';
-	}
-	
-	test {
-		forkEvery = 1;
-		maxParallelForks = 4;
-		// systemProperties 'server.root': rootDir.path + '/server';
-	}
+    sourceCompatibility = 1.6;
+    targetCompatibility = 1.6;
+    
+    dependencies {
+        compile 'commons-collections:commons-collections:3.2';
+        testCompile 'junit:junit:4.+';
+    }
+    
+    test {
+        forkEvery = 10;
+        maxParallelForks = 4;
+    }
 
-	/**
-	 * Adds cobertura support to all subprojects
-	 */
-	buildscript {
-		apply from: rootDir.path + '/cobertura.gradle';
-	}
+    /**
+     * Adds cobertura support to all subprojects
+     */
+    buildscript {
+        apply from: rootDir.path + '/cobertura.gradle';
+    }
 
-	/**
-	* see gradle.properties for more details
-	**/
+    /**
+    * see gradle.properties for more details
+    **/
    uploadArchives {
-	   repositories.mavenDeployer {
-		   repository(url: repositoryUploadUrl) {
-			   authentication(userName: repositoryUserName, password: repositoryPassword);
-		   }
-	   }
+       repositories.mavenDeployer {
+           repository(url: repositoryUploadUrl) {
+               authentication(userName: repositoryUserName, password: repositoryPassword);
+           }
+       }
    }
    
-	task initProject << {
-		sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
-		sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
-	}
+    task initProject << {
+        sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
+        sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
+    }
 }

@@ -20,11 +20,11 @@ import org.mockito.Mockito;
  * @author jburbridge
  *
  */
-public class PingCheckTest {
+public class PingServletTest {
 
 	@Test
 	public void test() throws IOException {
-		PingCheck pingCheck = new PingCheck();
+		PingServlet pingCheck = new PingServlet();
 		HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 		HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
 		Mockito.when(response.getWriter()).thenReturn(new PrintWriter(System.out));

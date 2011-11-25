@@ -5,16 +5,16 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 	<servlet>
 		<description>
 		A simple servlet used for monitoring checks</description>
-		<display-name>PingCheck</display-name>
-		<servlet-name>PingCheck</servlet-name>
-		<servlet-class>com.johnburbridge.www.PingCheck</servlet-class>
+		<display-name>PingServlet</display-name>
+		<servlet-name>PingServlet</servlet-name>
+		<servlet-class>com.johnburbridge.www.PingServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>PingCheck</servlet-name>
-		<url-pattern>/PingCheck</url-pattern>
+		<servlet-name>PingServlet</servlet-name>
+		<url-pattern>/ping</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>PingCheck</servlet-name>
+		<servlet-name>PingServlet</servlet-name>
 		<url-pattern>/ping.jsp</url-pattern>
 	</servlet-mapping>
 
