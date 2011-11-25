@@ -8,7 +8,6 @@ subprojects {
     
     apply plugin: 'war';
     apply plugin: 'eclipse-wtp';
-    apply plugin: 'maven';
     apply plugin: 'project-report';
     
     sourceCompatibility = 1.6;

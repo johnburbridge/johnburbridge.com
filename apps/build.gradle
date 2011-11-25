@@ -12,7 +12,6 @@ subprojects {
     
     apply plugin: 'java';
     apply plugin: 'eclipse';
-    apply plugin: 'maven';
     apply plugin: 'project-report';
 
     sourceCompatibility = 1.6;
