@@ -8,15 +8,13 @@ description = "Tasks for setting up the project's tools such ash apache httpd, t
 def tomcatFileName = 'apache-tomcat-' + tomcatVersion;
 def tomcatZipFileName = tomcatFileName + '.zip';
 def tomcatZipFileLocation = project.buildDir.toString() + '/tmp/' + tomcatZipFileName;
-def downloadUrl = artifactoryRoot + '/ext-release-local/tools/apache-tomcat/' + tomcatZipFileName;
-
+def downloadUrl = artifactoryRoot + '/tools/apache-tomcat/' + tomcatZipFileName;
 /**
  * Downloads a copy of tomcat from the local repository if it hasn't already been downloaded
  */
 task downloadTomcat {
     outputs.file file(tomcatZipFileLocation); 
     doLast {
-//        project.buildDir.mkdirs();
         file(project.buildDir.toString() + '/tmp/').mkdirs();
         ant.get(src: downloadUrl, dest: tomcatZipFileLocation, verbose: true);
     }
@@ -42,7 +40,7 @@ task explodeTomcatServer(dependsOn: downloadTomcat) {
         if (System.getProperty("os.name").toLowerCase().indexOf("win") < 0) {
             FileTree tree = fileTree(tomcatFileName + '/bin').include('**/*.sh');
             tree.each { File file ->
-                println file;
+                logger.info('Setting +x permission on ' + file);
                 file.setExecutable(true);
             }
         }
@@ -51,7 +49,7 @@ task explodeTomcatServer(dependsOn: downloadTomcat) {
 
 task setupHttpd(dependsOn: 'makeInstallHttpd') << {
     description = 'Sets up the Apache ' + httpdVersion + ' server';
-    println 'Apache ' + httpdVersion + ' was installed under ' + rootProject.rootDir + httpdPath;
+    logger.info('Apache ' + httpdVersion + ' was installed under ' + rootProject.rootDir + httpdPath);
 }
 
 task makeInstallHttpd(type: Exec, dependsOn: 'makeHttpd') {

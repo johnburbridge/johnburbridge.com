@@ -1,6 +1,5 @@
 /**
  * Default settings for all webapps
- * @author jburbridge
  */
 description = "This project contains the defaults for all webapps";
 
@@ -10,15 +9,16 @@ subprojects {
     apply plugin: 'eclipse-wtp';
     apply plugin: 'project-report';
     
+    /**
+    * Import the cargo and cobertura plug-in definitions
+    */
+   buildscript {
+       apply from: rootDir.path + '/cargo.gradle';
+       apply from: rootDir.path + '/cobertura.gradle';
+   }
+   
     sourceCompatibility = 1.6;
     targetCompatibility = 1.6;
-    
-    /**
-     * Adds cargo support to all subprojects
-     */
-    buildscript {
-        apply from: rootDir.path + '/cargo.gradle';
-    }
     
     dependencies {
         testCompile 'junit:junit:4.+';
@@ -34,27 +34,24 @@ subprojects {
     }
 
     /**
-     * Adds cobertura support to all subprojects
-     */
-    buildscript {
-        apply from: rootDir.path + '/cobertura.gradle';
-    }
-
-    /**
-    * see the root build.gradle for more details
-    **/
+     * see the ~/.gradle/gradle.properties for more details on the credentials
+     **/
     uploadArchives {
         repositories {
             ivy {
-                url repositoryReleasesUrl;
+                url "${repositoryGradleLocalUrl}";
                 credentials {
-                    username repositoryUsername;
-                    password repositoryPassword;
+                    username "${artifactory_user}";
+                    password "${artifactory_password}";
                 }
             }
         }
     }
-   
+    uploadArchives.dependsOn(build);
+    
+    /**
+     * initialize the project by creating it's the source, resources and webapp folders
+     */
     task initProject << {
         sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
         sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }

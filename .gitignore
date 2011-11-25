@@ -1,4 +1,4 @@
-# ignore dot files by default
+# ignore all dot files by default
 .*
 
 # but don't ignore this file :)
@@ -6,9 +6,11 @@
 
 # gradle build folders
 build
+build/*
 
 # eclipse build output
 bin
+bin/*
 
 # stuff we downloaded from the interwebs
 /install/*

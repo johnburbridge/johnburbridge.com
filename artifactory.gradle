@@ -1,0 +1,22 @@
+/**
+ * For details on the Artifactory plug-in:
+ * http://wiki.jfrog.org/confluence/display/RTF/Gradle+Artifactory+Plugin
+ * 
+ * There's a a great demo on how to setup the artifactory integration here:
+ * http://www.youtube.com/watch?v=zhhCD5qtocg
+ * 
+ * NOTE: I'm having a hard time getting this to work as directed. gradle -I artifactory.gradle
+ * keeps throwing: Cause: java.util.ConcurrentModificationException (no error message)
+ **/
+gradle.projectsLoaded {
+    rootProject.allprojects {
+        buildscript {
+            repositories {
+                mavenRepo url: "${repositoryGradleUrl}";
+            }
+            dependencies {
+                classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '2.0.x-SNAPSHOT', classifier: 'uber');
+            }
+        }
+    }
+}

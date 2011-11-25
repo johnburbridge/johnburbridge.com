@@ -35,22 +35,25 @@ subprojects {
     }
 
     /**
-    * see the root build.gradle for more details
-    **/
+     * see the ~/.gradle/gradle.properties for more details on the credentials
+     **/
     uploadArchives {
         repositories {
             ivy {
-                url repositoryReleasesUrl;
+                url "${repositoryGradleLocalUrl}";
                 credentials {
-                    username repositoryUsername;
-                    password repositoryPassword;
+                    username "${artifactory_user}";
+                    password "${artifactory_password}";
                 }
             }
         }
     }
+    uploadArchives.dependsOn(build);
+    
    
     task initProject << {
         sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
         sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
     }
 }
+

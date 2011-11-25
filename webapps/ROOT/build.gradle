@@ -56,9 +56,8 @@ task integrationTest(type: Test) {
     classpath = sourceSets.integration.runtimeClasspath;
 }
 
-// slot the integration tests after war assembly and regular checks, but before build
+// slot the integration tests into our build cycle -  after war, assembly and regular checks, but before build
 cargoStartLocal.dependsOn([assemble, check, project(':install').explodeTomcatServer]);
 integrationTest.dependsOn(cargoStartLocal);
 cargoStopLocal.dependsOn(integrationTest);
 build.dependsOn(cargoStopLocal);
-
