@@ -13,9 +13,7 @@ sourceSets {
 
 dependencies {
 
-    compile project(":apps:blog"),
-        project(":apps:jukebox"),
-        project(":common"),
+    compile project(":common"),
         "javax.servlet:servlet-api:2.5";
         
     testCompile "org.mockito:mockito-all:1.8.5",
