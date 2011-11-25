@@ -36,15 +36,19 @@ subprojects {
     }
 
     /**
-    * see gradle.properties for more details
+    * see the root build.gradle for more details
     **/
-   uploadArchives {
-       repositories.mavenDeployer {
-           repository(url: repositoryUploadUrl) {
-               authentication(userName: repositoryUserName, password: repositoryPassword);
-           }
-       }
-   }
+    uploadArchives {
+        repositories {
+            ivy {
+                url repositoryReleasesUrl;
+                credentials {
+                    username repositoryUsername;
+                    password repositoryPassword;
+                }
+            }
+        }
+    }
    
     task initProject << {
         sourceSets.all*.java.srcDirs*.each { it.mkdirs() }

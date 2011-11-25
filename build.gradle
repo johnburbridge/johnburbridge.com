@@ -4,10 +4,15 @@
 
 apply plugin: 'groovy';
 
+
 allprojects {
-	 def repositoryUserName = hasProperty('repositoryUserName') ? repositoryUserName : '';
-	 def repositoryPassword = hasProperty('repositoryPassword') ? repositoryPassword : '';
-	 repositories {
-		 mavenRepo url: repositoryUrl;
-	}
+
+    // if the upload authorized username / password weren't passed via the -P switch, 
+    // then use the read-only account defined here as defaults
+    repositoryUsername = project.hasProperty('repoUsername') ? repoUsername : 'build';
+    repositoryPassword = project.hasProperty('repoPassword') ? repoPassword: 'build';
+
+    repositories {
+        mavenRepo url: repositoryUrl;
+    }
 }
