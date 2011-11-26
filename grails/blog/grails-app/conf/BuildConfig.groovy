@@ -14,6 +14,9 @@ grails.project.dependency.resolution = {
         grailsHome()
         grailsCentral()
 
+        mavenRepo "http://repo.johnburbridge.net:8081/artifactory/libs-releases-local/"
+        mavenRepo "http://repo.johnburbridge.net:8081/artifactory/plugins-releases-local/"
+
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
         //mavenLocal()

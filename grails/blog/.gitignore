@@ -1,6 +1,12 @@
+# files we don't want
+target/*
+*.log
+*.class
+
 # grails-app
 lib
 scripts
 test
+
 # web-app
 application.properties
