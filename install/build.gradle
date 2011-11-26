@@ -5,10 +5,11 @@
 
 description = "Tasks for setting up the project's tools such ash apache httpd, tomcat and gradlew"
 
-def tomcatFileName = 'apache-tomcat-' + tomcatVersion;
-def tomcatZipFileName = tomcatFileName + '.zip';
-def tomcatZipFileLocation = project.buildDir.toString() + '/tmp/' + tomcatZipFileName;
-def downloadUrl = artifactoryRoot + '/tools/apache-tomcat/' + tomcatZipFileName;
+def tomcatBaseName = 'apache-tomcat-' + tomcatVersion;
+def tomcatZipFile = tomcatBaseName + '.zip';
+def tomcatZipFileLocation = project.buildDir.toString() + '/tmp/' + tomcatZipFile;
+def tomcatDownloadUrl = artifactoryRoot + '/tools/apache-tomcat/' + tomcatZipFile;
+
 /**
  * Downloads a copy of tomcat from the local repository if it hasn't already been downloaded
  */
@@ -16,7 +17,7 @@ task downloadTomcat {
     outputs.file file(tomcatZipFileLocation); 
     doLast {
         file(project.buildDir.toString() + '/tmp/').mkdirs();
-        ant.get(src: downloadUrl, dest: tomcatZipFileLocation, verbose: true);
+        ant.get(src: tomcatDownloadUrl, dest: tomcatZipFileLocation, verbose: true);
     }
 }
 
@@ -25,20 +26,20 @@ task downloadTomcat {
  */
 task explodeTomcatServer(dependsOn: downloadTomcat) {
     inputs.file file(tomcatZipFileLocation); 
-    outputs.dir file(tomcatFileName); 
+    outputs.dir file(tomcatBaseName); 
     doLast {
         copy {
             from zipTree(tomcatZipFileLocation);
             into project.projectDir;
-            include tomcatFileName + '/bin/**';
-            include tomcatFileName + '/conf/**';
-            include tomcatFileName + '/lib/**';
-            include tomcatFileName + '/webapps/**';
-            include tomcatFileName + '/work/**';
+            include tomcatBaseName + '/bin/**';
+            include tomcatBaseName + '/conf/**';
+            include tomcatBaseName + '/lib/**';
+            include tomcatBaseName + '/webapps/**';
+            include tomcatBaseName + '/work/**';
         }
         // make sure that the shell scripts are set +x on linux / macs
         if (System.getProperty("os.name").toLowerCase().indexOf("win") < 0) {
-            FileTree tree = fileTree(tomcatFileName + '/bin').include('**/*.sh');
+            FileTree tree = fileTree(tomcatBaseName + '/bin').include('**/*.sh');
             tree.each { File file ->
                 logger.info('Setting +x permission on ' + file);
                 file.setExecutable(true);
@@ -46,6 +47,45 @@ task explodeTomcatServer(dependsOn: downloadTomcat) {
         }
     }
 }
+
+def grailsBaseName = 'grails-' + grailsVersion;
+def grailsZipFile = grailsBaseName + '.zip';
+def grailsZipFileLocation = project.buildDir.toString() + '/tmp/' + grailsZipFile;
+def grailsDownloadUrl = artifactoryRoot + '/tools/grails/' + grailsZipFile;
+
+/**
+ * Downloads a copy of grails from the local repository if it hasn't already been downloaded
+ */
+task downloadGrails {
+	outputs.file file(grailsZipFileLocation);
+	doLast {
+		file(project.buildDir.toString() + '/tmp/').mkdirs();
+		ant.get(src: grailsDownloadUrl, dest: grailsZipFileLocation, verbose: true);
+	}
+}
+
+/**
+ * Expand the downloaded archive if it hasn't already been expanded
+ */
+task explodeGrailsZip(dependsOn: downloadGrails) {
+	inputs.file file(grailsZipFileLocation);
+	outputs.dir file(grailsBaseName);
+	doLast {
+		copy {
+			from zipTree(grailsZipFileLocation);
+			into project.projectDir;
+		}
+		// make sure that everything but the .bat files are set +x on linux / macs
+		if (System.getProperty("os.name").toLowerCase().indexOf("win") < 0) {
+			FileTree tree = fileTree(grailsBaseName + '/bin').exclude('**/*.bat');
+			tree.each { File file ->
+				logger.info('Setting +x permission on ' + file);
+				file.setExecutable(true);
+			}
+		}
+	}
+}
+
 
 task setupHttpd(dependsOn: 'makeInstallHttpd') << {
     description = 'Sets up the Apache ' + httpdVersion + ' server';
