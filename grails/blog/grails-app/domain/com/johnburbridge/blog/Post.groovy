@@ -1,4 +1,4 @@
-package com.johnburbridge.blog.domain
+package com.johnburbridge.blog
 
 /**
  * @author jburbridge
@@ -7,11 +7,12 @@ package com.johnburbridge.blog.domain
 class Post {
 
 	String title;
-	Person author;
+	User author;
 	Date postedDate;
 	String body;
 	
-	static belongsTo = Person;
+	static belongsTo = User;
+	static hasMany = [comments: Comment];
 	
     static constraints = {
 		title blank: false;

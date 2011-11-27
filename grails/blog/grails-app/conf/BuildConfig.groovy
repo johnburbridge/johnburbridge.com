@@ -34,7 +34,8 @@ grails.project.dependency.resolution = {
     }
 }
 coverage {
-	enabledByDefault = true
+	enabledByDefault = true;
+	exclusions = [ "**/com/johnburbridge/security/**" ];
 }
 
 grails.project.dependency.distribution = {

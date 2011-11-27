@@ -1,4 +1,4 @@
-package com.johnburbridge.controllers
+package com.johnburbridge.blog
 
 import grails.test.*
 

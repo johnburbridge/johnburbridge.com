@@ -4,3 +4,4 @@ target-eclipse/*
 *.log
 *.class
 cobertura.ser
+CodeNarcReport.html

@@ -1,4 +1,6 @@
-package com.johnburbridge.blog.domain
+package com.johnburbridge.blog
+
+import com.johnburbridge.blog.Post;
 
 import grails.test.*
 
@@ -23,12 +25,12 @@ class PostTests extends GrailsUnitTestCase {
     }
 	
 	static Post getNewPost() {
-		def person = PersonTests.getNewPerson();
+		def user = UserTests.getNewUser();
 		new Post(
 			title: 'hello world!',
 			postedDate: new Date(0),
 			body: 'this is the body',
-			author: person
+			author: user
 		);
 	}
 }

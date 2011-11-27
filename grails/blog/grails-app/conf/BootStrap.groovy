@@ -1,23 +1,39 @@
-import com.johnburbridge.blog.domain.Person;
-import com.johnburbridge.blog.domain.Post;
-import com.johnburbridge.blog.domain.User
+import com.johnburbridge.blog.User;
+import com.johnburbridge.blog.Post;
+import com.johnburbridge.security.SecurityRole;
+import com.johnburbridge.security.SecurityUserSecurityRole;
 
 class BootStrap {
 
+	// def springSecurityService;
+	
     def init = { servletContext ->
+		
 		def user = new User(
 			firstName: 'John',
 			lastName: 'Burbridge',
-			userName: 'jburbridge',
-			password: 'secret',
+			username: 'jburbridge',
+			password: 'foobarbaz',
+			enabled: true,
 			email: 'jburbridge@johnburbridge.net',
 			bio: '''Software Engineer & Fun Loving Person'''
 		);
-		if (!user.save()) {
-			person.errors.allErrors.each { error ->
-				println "An error occured while bootstrapping user: ${error}"
-			}
-		} 
+		if (user.validate()) {
+			println "Creating user $user...";
+			if (!user.save()) {
+				person.errors.allErrors.each { error ->
+					println "An error occured while bootstrapping user: ${error}"
+				}
+			} 
+		}
+		
+		// first check if we already have these roles created and if not, populate the database
+		def userRole = SecurityRole.findByAuthority("ROLE_USER") ?: new SecurityRole(authority: "ROLE_USER").save();
+		def adminRole = SecurityRole.findByAuthority("ROLE_ADMIN") ?: new SecurityRole(authority: "ROLE_ADMIN").save();
+		
+		SecurityUserSecurityRole.create(user, userRole);
+		SecurityUserSecurityRole.create(user, adminRole);
+		
 		def post1 = new Post(
 			title: 'Welcome to your blog',
 			postedDate: new Date(),

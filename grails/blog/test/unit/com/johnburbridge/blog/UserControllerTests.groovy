@@ -1,8 +1,8 @@
-package com.johnburbridge.controllers
+package com.johnburbridge.blog
 
 import grails.test.*
 
-class PersonControllerTests extends ControllerUnitTestCase {
+class UserControllerTests extends ControllerUnitTestCase {
     protected void setUp() {
         super.setUp()
     }

@@ -1,4 +1,6 @@
-package com.johnburbridge.blog.domain
+package com.johnburbridge.blog
+
+import com.johnburbridge.blog.User;
 
 import grails.test.*
 
@@ -19,14 +21,15 @@ class UserTests extends GrailsUnitTestCase {
 
     void testToString() {
 		def user = getNewUser();
-		assertEquals('didaho', user.toString());
+		assertEquals('Duncan Idaho <didaho@choam.com>', user.toString());
     }
 	
 	public static User getNewUser() {
+		String username = 'd' + new Random().nextLong().toString();
 		new User(
 			firstName: 'Duncan',
 			lastName: 'Idaho',
-			userName: 'didaho',
+			username: username,
 			password: 'secret',
 			email: 'didaho@choam.com',
 			bio: 'Poet & Assassin!'
