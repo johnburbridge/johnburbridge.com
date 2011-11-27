@@ -10,10 +10,11 @@ grails.project.dependency.resolution = {
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
-        grailsPlugins()
-        grailsHome()
-        grailsCentral()
+        //grailsPlugins()
+        //grailsHome()
+        //grailsCentral()
 
+        mavenRepo "http://repo.johnburbridge.net:8081/artifactory/remote-repos/"
         mavenRepo "http://repo.johnburbridge.net:8081/artifactory/libs-releases-local/"
         mavenRepo "http://repo.johnburbridge.net:8081/artifactory/plugins-releases-local/"
 
