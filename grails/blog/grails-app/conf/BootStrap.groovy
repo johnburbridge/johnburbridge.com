@@ -1,20 +1,21 @@
 import com.johnburbridge.blog.domain.Person;
 import com.johnburbridge.blog.domain.Post;
+import com.johnburbridge.blog.domain.User
 
 class BootStrap {
 
     def init = { servletContext ->
-		def person = new Person(
-			firstName: 'Paul',
-			lastName: 'Atreides',
-			userName: 'muadib',
+		def user = new User(
+			firstName: 'John',
+			lastName: 'Burbridge',
+			userName: 'jburbridge',
 			password: 'secret',
-			email: 'patreides@choam.com',
-			bio: '''Blind Prophet & Kwisatz Haderach'''
+			email: 'jburbridge@johnburbridge.net',
+			bio: '''Software Engineer & Fun Loving Person'''
 		);
-		if (!person.save()) {
+		if (!user.save()) {
 			person.errors.allErrors.each { error ->
-				println "An error occured while bootstrapping person: ${error}"
+				println "An error occured while bootstrapping user: ${error}"
 			}
 		} 
 		def post1 = new Post(
@@ -25,7 +26,7 @@ class BootStrap {
                      documenting the development process. It's very meta, in the sense
                      that I am posting about developing the application while doing
                      the development of the application. More on that later... :)''',
-			author: person
+			author: user
 		);
 		if (!post1.save()) {
 			post1.errors.allErrors.each { error ->
@@ -41,7 +42,7 @@ class BootStrap {
                      way around). I would expect that this would be incredibly easy to share with
                      other developers as the unit tests and data bootstraps do a great job of 
                      demonstrating how it all works.''',
-			author: person
+			author: user
 		);
 		if (!post2.save()) {
 			post2.errors.allErrors.each { error ->

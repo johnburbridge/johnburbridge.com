@@ -1,5 +1,6 @@
 # files we don't want
 target/*
+target-eclipse/*
 *.log
 *.class
 cobertura.ser

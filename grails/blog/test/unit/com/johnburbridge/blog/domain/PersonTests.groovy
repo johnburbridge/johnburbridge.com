@@ -26,8 +26,6 @@ class PersonTests extends GrailsUnitTestCase {
 		new Person(
 			firstName: 'Paul',
 			lastName: 'Atreides',
-			userName: 'muadib',
-			password: 'secret',
 			email: 'patreides@choam.com',
 			bio: '''Blind Prophet & Kwisatz Haderach'''
 		);

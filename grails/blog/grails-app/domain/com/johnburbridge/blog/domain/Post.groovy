@@ -2,14 +2,16 @@ package com.johnburbridge.blog.domain
 
 /**
  * @author jburbridge
- * @since 11/125/2011
+ * @since 11/25/2011
  */
 class Post {
 
 	String title;
 	Person author;
-	String body;
 	Date postedDate;
+	String body;
+	
+	static belongsTo = Person;
 	
     static constraints = {
 		title blank: false;
