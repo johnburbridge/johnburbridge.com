@@ -5,11 +5,17 @@ import grails.test.*
 class PersonTests extends GrailsUnitTestCase {
     protected void setUp() {
         super.setUp()
+		mockDomain(Person)
     }
 
     protected void tearDown() {
         super.tearDown()
     }
+	
+	void testConstraints() {
+		assertTrue(getNewPerson().validate());
+		assertFalse(new Person().validate());
+	}
 
     void testToString() {
 		def person = getNewPerson();
