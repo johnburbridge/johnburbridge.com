@@ -33,3 +33,13 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.13'
     }
 }
+coverage {
+	enabledByDefault = true
+}
+
+grails.project.dependency.distribution = {
+	remoteRepository(id: "gradleLocal", url: "http://repo.johnburbridge.net:8081/artifactory/gradle-local/") {
+		authentication username: "${repo_username}", password: "${repo_password}"
+	}
+}
+
