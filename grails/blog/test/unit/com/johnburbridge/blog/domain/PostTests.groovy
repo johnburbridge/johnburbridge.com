@@ -11,7 +11,14 @@ class PostTests extends GrailsUnitTestCase {
         super.tearDown()
     }
 
-    void testSomething() {
-
+    void testToString() {
+		def person = PersonTests.getNewPerson();
+		def post = new Post(
+			title: 'hello world!',
+			postedDate: new Date(0),
+			body: 'this is the body',
+			author: person
+		);
+		assertEquals('hello world! - [Wed Dec 31 16:00:00 PST 1969]', post.toString());
     }
 }

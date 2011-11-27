@@ -6,15 +6,19 @@ package com.johnburbridge.blog.domain
  */
 class Post {
 
-	String postId;
 	String title;
+	Person author;
 	String body;
-	Date datePosted;
+	Date postedDate;
 	
     static constraints = {
-		postId blank: false, unique: true;
 		title blank: false;
-		body blank: false;
-		datePosted blank: false;
+		author blank: false;
+		postedDate blank: false;
+		body blank: false, maxSize: 5000;
     }
+	
+	String toString() {
+		"${title} - [${postedDate}]";
+	}
 }

@@ -9,6 +9,9 @@ class Person {
 	String firstName;
 	String lastName;
 	String userName;
+	String password;
+	String email;
+	String bio;
 
 	static hasMany = [posts: Post];	
 	
@@ -16,5 +19,12 @@ class Person {
 		firstName blank: false;
 		lastName blank: false;
 		userName blank: false, unique: true;
+		password blank: false;
+		email blank: false;
+		bio blank: true, maxSize: 1000; 
     }
+	
+	String toString() {	
+		"${firstName} ${lastName} <${email}>";
+	}
 }
