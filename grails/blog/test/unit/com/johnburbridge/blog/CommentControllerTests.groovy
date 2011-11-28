@@ -2,11 +2,7 @@ package com.johnburbridge.blog
 
 import grails.test.*
 
-/**
- * @author jburbridge
- * @since 11/27/2011
- */
-class UserControllerTests extends ControllerUnitTestCase {
+class CommentControllerTests extends ControllerUnitTestCase {
     protected void setUp() {
         super.setUp()
     }
@@ -16,7 +12,7 @@ class UserControllerTests extends ControllerUnitTestCase {
     }
 
     void testInstance() {
-		def userController = new UserController();
-		assertTrue(UserController.asBoolean());
+		def commentController = new CommentController();
+		assertTrue(commentController.asBoolean());
 	}
 }

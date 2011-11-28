@@ -15,7 +15,8 @@ class PostControllerTests extends ControllerUnitTestCase {
         super.tearDown()
     }
 
-    void testSomething() {
-
-    }
+    void testInstance() {
+		def postController = new PostController();
+		assertTrue(postController.asBoolean());
+	}
 }

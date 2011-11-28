@@ -1,3 +1,4 @@
+import com.johnburbridge.blog.Comment
 import com.johnburbridge.blog.User;
 import com.johnburbridge.blog.Post;
 import com.johnburbridge.security.SecurityRole;
@@ -34,8 +35,9 @@ class BootStrap {
 		SecurityUserSecurityRole.create(user, userRole);
 		SecurityUserSecurityRole.create(user, adminRole);
 		
+		// now add a couple of posts
 		def post1 = new Post(
-			title: 'Welcome to your blog',
+			title: 'Welcome to my blog',
 			postedDate: new Date(),
 			body: '''The purpose of this blog application is to test the 
                      functionality contained in Grails while at the same time
@@ -63,6 +65,48 @@ class BootStrap {
 		if (!post2.save()) {
 			post2.errors.allErrors.each { error ->
 				println "An error occured while bootstrapping post2: ${error}"
+			}
+		} 
+		
+		// and add a few comments to the posts
+		def comment1 = new Comment(
+			post: post1,
+			visitorName: 'anonymous',
+			visitorEmail: 'foo@bar.com',
+			postedDate: new Date(),
+			body: 'Yay! Finally!'
+		);
+		if (!comment1.save()) {
+			comment1.errors.allErrors.each { error ->
+				println "An error occured while bootstrapping comment1: ${error}"
+			}
+		} 
+		
+
+		def comment2 = new Comment(
+			post: post1,
+			visitorName: 'elena',
+			visitorEmail: 'eleeena@mac.com',
+			postedDate: new Date(),
+			body: 'Wheeeeeee!'
+		);
+		if (!comment2.save()) {
+			comment2.errors.allErrors.each { error ->
+				println "An error occured while bootstrapping comment2: ${error}"
+			}
+		} 
+		
+
+		def comment3 = new Comment(
+			post: post2,
+			visitorName: 'elena',
+			visitorEmail: 'eleeena@mac.com',
+			postedDate: new Date(),
+			body: 'What\'s bootstrapping?!'
+		);
+		if (!comment3.save()) {
+			comment3.errors.allErrors.each { error ->
+				println "An error occured while bootstrapping comment3: ${error}"
 			}
 		} 
     }
