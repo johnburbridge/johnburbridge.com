@@ -1,9 +1,11 @@
 package com.johnburbridge.blog
 
-import com.johnburbridge.blog.Post;
-
 import grails.test.*
 
+/**
+ * @author jburbridge
+ * @since 11/27/2011
+ */
 class PostTests extends GrailsUnitTestCase {
     protected void setUp() {
         super.setUp()

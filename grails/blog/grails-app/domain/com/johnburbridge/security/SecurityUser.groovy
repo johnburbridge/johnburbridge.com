@@ -37,4 +37,11 @@ class SecurityUser {
 	protected void encodePassword() {
 		password = springSecurityService.encodePassword(password)
 	}
+
+	@Override
+	public String toString() {
+		return "SecurityUser [username=${username}, enabled=${enabled}" 
+				+ ", accountExpired=${accountExpired}, accountLocked=${accountLocked}"
+				+ ", passwordExpired=${passwordExpired}]";
+	}
 }

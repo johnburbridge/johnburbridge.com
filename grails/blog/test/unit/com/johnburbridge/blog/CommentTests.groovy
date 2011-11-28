@@ -2,6 +2,10 @@ package com.johnburbridge.blog
 
 import grails.test.*
 
+/**
+ * @author jburbridge
+ * @since 11/27/2011
+ */
 class CommentTests extends GrailsUnitTestCase {
     protected void setUp() {
         super.setUp()

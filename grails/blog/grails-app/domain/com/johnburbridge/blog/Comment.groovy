@@ -1,7 +1,5 @@
 package com.johnburbridge.blog
 
-import java.util.Date;
-
 class Comment {
 
 	Post post;
