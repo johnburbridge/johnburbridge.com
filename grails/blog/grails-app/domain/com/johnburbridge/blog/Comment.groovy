@@ -1,5 +1,9 @@
 package com.johnburbridge.blog
 
+/**
+ * @author jburbridge
+ * @since 11/25/2011
+ */
 class Comment {
 
 	Post post;

@@ -17,6 +17,6 @@ class UserControllerTests extends ControllerUnitTestCase {
 
     void testInstance() {
 		def userController = new UserController();
-		assertTrue(UserController.asBoolean());
+		assertTrue(userController.asBoolean());
 	}
 }

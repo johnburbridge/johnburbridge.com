@@ -3,9 +3,9 @@ package com.johnburbridge.blog
 import com.johnburbridge.security.SecurityUser
 
 /**
-* @author jburbridge
-* @since 11/27/2011
-*/
+ * @author jburbridge
+ * @since 11/27/2011
+ */
 class User extends SecurityUser {
 
     String firstName;
