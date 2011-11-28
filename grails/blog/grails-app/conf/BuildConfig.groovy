@@ -10,13 +10,14 @@ grails.project.dependency.resolution = {
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
-        //grailsPlugins()
-        //grailsHome()
-        //grailsCentral()
 
         mavenRepo "http://repo.johnburbridge.net:8081/artifactory/remote-repos/"
         mavenRepo "http://repo.johnburbridge.net:8081/artifactory/libs-releases-local/"
         mavenRepo "http://repo.johnburbridge.net:8081/artifactory/plugins-releases-local/"
+
+		grailsPlugins()
+		grailsHome()
+		grailsCentral()
 
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
@@ -33,9 +34,16 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.13'
     }
 }
+
 coverage {
 	enabledByDefault = true;
 	exclusions = [ "**/com/johnburbridge/security/**" ];
+}
+
+codenarc {
+	reportName = 'target/test-reports/CodeNarcReport.xml'
+	reportType = 'xml'
+	// any further settings like maxPriority1Violations=0
 }
 
 grails.project.dependency.distribution = {
