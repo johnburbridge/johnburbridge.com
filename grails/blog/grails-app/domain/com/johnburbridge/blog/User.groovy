@@ -16,9 +16,9 @@ class User extends SecurityUser {
     static hasMany = [posts: Post];    
     
     static constraints = {
-        firstName blank: false;
-        lastName blank: false;
-        email blank: false;
+        firstName blank: false, maxSize: 20;
+        lastName blank: false, maxSize: 20;
+        email email: true, blank: true;
         bio blank: true, maxSize: 1000; 
     }
     

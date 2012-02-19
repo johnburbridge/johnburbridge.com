@@ -1,7 +1,7 @@
 include ':apps:example',
   ':apps:jukebox',
   ':common',
-  ':grails:blog',
+//  ':grails:blog',
   ':install',
   ':servers',
   ':webapps:ROOT';

@@ -25,7 +25,7 @@ buildscript {
 			dependency "net.sourceforge.cobertura:cobertura:1.9.4.1";
 			dependency "org.codehaus.groovy:groovy:1.7.3";
 			dependency "junit:junit:3.8.2";
-			dependency "org.testng:testng:5.8";
+			dependency "org.testng:testng:6.4";
 		}
 	}
 }
