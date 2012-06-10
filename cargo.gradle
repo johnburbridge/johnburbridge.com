@@ -4,7 +4,10 @@
  */
 buildscript {
     repositories {
-        mavenRepo url: repositoryUrl;
+        maven {
+            name 'allCombinedRepos';
+            url repositoryUrl;
+        }
     }
     dependencies {
         classpath 'bmuschko:gradle-cargo-plugin:0.3'

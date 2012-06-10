@@ -28,7 +28,10 @@ allprojects {
      * apply plugin: 'artifactory';
      */
     repositories {
-        mavenRepo url: "${repositoryUrl}";
+        maven {
+            name 'allCombinedRepos';
+             url "${repositoryUrl}";
+        }
     }
 }
 /*
@@ -61,10 +64,8 @@ artifactory {
 }
 */
 
-dependsOnChildren()
-
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.0-milestone-6'
+    gradleVersion = '1.0-rc-3'
 }
 
 class Version {

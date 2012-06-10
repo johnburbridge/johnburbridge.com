@@ -41,7 +41,7 @@ subprojects {
             ivy {
                 url "${repositoryGradleLocalUrl}";
                 credentials {
-                    username "${artifactory_user}";
+                    username "${artifactory_username}";
                     password "${artifactory_password}";
                 }
             }
