@@ -12,7 +12,8 @@ subprojects {
     
     apply plugin: 'java';
     apply plugin: 'eclipse';
-
+    apply plugin: 'maven';
+    
     /**
      * Adds cobertura support to all subprojects
      */

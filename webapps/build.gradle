@@ -6,6 +6,7 @@ description = "This project contains the defaults for all webapps";
 subprojects {
     
     apply plugin: 'war';
+    apply plugin: 'maven';
     apply plugin: 'eclipse-wtp';
     apply plugin: 'project-report';
     
@@ -21,7 +22,12 @@ subprojects {
     targetCompatibility = 1.6;
     
     dependencies {
+        
+        providedCompile 'javax:javaee-web-api:6.0';
+        providedRuntime 'org.eclipse.jetty.aggregate:jetty-server:8.1.2.v20120308';
+        
         testCompile 'junit:junit:4.+';
+        
         def cargoVersion = '1.1.1';
         cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion",
               "org.codehaus.cargo:cargo-ant:$cargoVersion",

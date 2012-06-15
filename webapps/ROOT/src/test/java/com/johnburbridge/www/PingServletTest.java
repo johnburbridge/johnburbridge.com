@@ -6,7 +6,6 @@ package com.johnburbridge.www;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
