@@ -11,9 +11,9 @@ grails.project.dependency.resolution = {
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
 
-        mavenRepo "http://repo.johnburbridge.net:8081/artifactory/remote-repos/"
-        mavenRepo "http://repo.johnburbridge.net:8081/artifactory/libs-releases-local/"
-        mavenRepo "http://repo.johnburbridge.net:8081/artifactory/plugins-releases-local/"
+        mavenRepo "http://repo.metabuild.net:8081/artifactory/remote-repos/"
+        mavenRepo "http://repo.metabuild.net:8081/artifactory/libs-releases-local/"
+        mavenRepo "http://repo.metabuild.net:8081/artifactory/plugins-releases-local/"
 
 		grailsPlugins()
 		grailsHome()
@@ -47,7 +47,7 @@ codenarc {
 }
 
 grails.project.dependency.distribution = {
-	remoteRepository(id: "gradleLocal", url: "http://repo.johnburbridge.net:8081/artifactory/gradle-local/") {
+	remoteRepository(id: "gradleLocal", url: "http://repo.metabuild.net:8081/artifactory/gradle-local/") {
 		authentication username: "${repo_username}", password: "${repo_password}"
 	}
 }
