@@ -29,6 +29,6 @@ do with this.
 At any rate, if you have any comments about any of the source code hosted here, please feel free to drop
 me a line.
 
-Cheers!  
+Happy development, 
 JB
 

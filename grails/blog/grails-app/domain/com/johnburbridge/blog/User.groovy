@@ -3,9 +3,9 @@ package com.johnburbridge.blog
 import com.johnburbridge.security.SecurityUser
 
 /**
-* @author jburbridge
-* @since 11/27/2011
-*/
+ * @author jburbridge
+ * @since 11/27/2011
+ */
 class User extends SecurityUser {
 
     String firstName;
@@ -16,9 +16,9 @@ class User extends SecurityUser {
     static hasMany = [posts: Post];    
     
     static constraints = {
-        firstName blank: false;
-        lastName blank: false;
-        email blank: false;
+        firstName blank: false, maxSize: 20;
+        lastName blank: false, maxSize: 20;
+        email email: true, blank: true;
         bio blank: true, maxSize: 1000; 
     }
     

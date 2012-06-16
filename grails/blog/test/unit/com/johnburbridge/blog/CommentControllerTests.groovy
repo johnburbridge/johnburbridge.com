@@ -11,8 +11,7 @@ class CommentControllerTests extends ControllerUnitTestCase {
         super.tearDown()
     }
 
-    void testInstance() {
-		def commentController = new CommentController();
-		assertTrue(commentController.asBoolean());
-	}
+    void testSomething() {
+
+    }
 }

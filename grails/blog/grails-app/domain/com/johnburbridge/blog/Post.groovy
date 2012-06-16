@@ -6,22 +6,22 @@ package com.johnburbridge.blog
  */
 class Post {
 
-	String title;
-	User author;
-	Date postedDate;
-	String body;
-	
-	static belongsTo = User;
-	static hasMany = [comments: Comment];
-	
+    String title;
+    User author;
+    Date postedDate;
+    String body;
+    
+    static belongsTo = User;
+    static hasMany = [comments: Comment];
+    
     static constraints = {
-		title blank: false;
-		author blank: false;
-		postedDate blank: false;
-		body blank: false, maxSize: 5000;
+        title blank: false, maxSize: 140;
+        author blank: false;
+        postedDate blank: false;
+        body blank: false, maxSize: 5000;
     }
-	
-	String toString() {
-		"${title} - [${postedDate}]";
-	}
+    
+    String toString() {
+        "${title} - [${postedDate}]";
+    }
 }
