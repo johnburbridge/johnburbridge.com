@@ -9,7 +9,7 @@
 * maven-style dependency, and are referenced below as a classpath artifact. If the artifact server is down or reinitialized
 * this plug-in will not work unless the jar file (gradle_cobertura-$version.jar) is primed and uploaded to the local
 * artifact proxy, located here:
-* http://repo.johnburbridge.net:8081/artifactory/libs-release-local/gradle_cobertura/gradle_cobertura
+* http://repo.metabuild.net:8081/artifactory/libs-release-local/gradle_cobertura/gradle_cobertura
 *
 * @author jburbridge
 */
@@ -17,16 +17,16 @@ import org.gradle.api.internal.GradleInternal
 import org.gradle.api.internal.project.ProjectInternal
 
 buildscript {
-	repositories {
-		mavenRepo url: repositoryUrl;
-	}
-	dependencies {
-		classpath module("gradle_cobertura:gradle_cobertura:1.0-rc4") {
-			dependency "net.sourceforge.cobertura:cobertura:1.9.4.1";
-			dependency "org.codehaus.groovy:groovy:1.7.3";
-			dependency "junit:junit:3.8.2";
-			dependency "org.testng:testng:6.4";
-		}
-	}
+    repositories {
+        maven {
+            name 'allCombinedRepos';
+            url repositoryUrl;
+        }
+    }
+    dependencies {
+        classpath module("gradle_cobertura:gradle_cobertura:1.2") {
+            dependency "net.sourceforge.cobertura:cobertura:1.9.4.1";
+        }
+    }
 }
 apply plugin: com.orbitz.gradle.cobertura.CoberturaPlugin;
