@@ -21,8 +21,8 @@ subprojects {
         apply from: rootDir.path + '/cobertura.gradle';
     }
 
-    sourceCompatibility = 1.6;
-    targetCompatibility = 1.6;
+    sourceCompatibility = 1.7;
+    targetCompatibility = 1.7;
     
     dependencies {
         compile 'commons-collections:commons-collections:3.2';
