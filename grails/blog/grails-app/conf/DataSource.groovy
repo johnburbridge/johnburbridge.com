@@ -1,5 +1,5 @@
 dataSource {
-    pooled = false
+    pooled = true
     driverClassName = "org.h2.Driver"
     username = "sa"
     password = ""
@@ -14,13 +14,13 @@ environments {
     development {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            url = "jdbc:h2:mem:devDB"
+            url = "jdbc:h2:mem:devDB;MVCC=TRUE"
         }
     }
     test {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:h2:mem:testD"
+            url = "jdbc:h2:mem:testD;MVCC=TRUE"
         }
     }
     production {
