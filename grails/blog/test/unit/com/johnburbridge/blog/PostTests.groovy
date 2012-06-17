@@ -17,20 +17,21 @@ class PostTests extends GrailsUnitTestCase {
     }
 	
 	void testConstraints() {
-		assertTrue(getNewPost().validate());
+		assertTrue(getNewPost(new Date()).validate());
 		assertFalse(new Post().validate());
 	}
 
     void testToString() {
-		def post = getNewPost();
-		assertEquals('hello world! - [Wed Dec 31 16:00:00 PST 1969]', post.toString());
+		def date = new Date();
+		def post = getNewPost(date);
+		assertEquals(new String("hello world! - [$date]"), post.toString());
     }
 	
-	static Post getNewPost() {
+	static Post getNewPost(Date date) {
 		def user = UserTests.getNewUser();
 		new Post(
 			title: 'hello world!',
-			postedDate: new Date(0),
+			postedDate: date,
 			body: 'this is the body',
 			author: user
 		);

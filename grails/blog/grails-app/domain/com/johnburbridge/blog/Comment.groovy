@@ -22,6 +22,6 @@ class Comment {
     }
     
     String toString() {
-        "$visitorName - [$postedDate]"
+        "$visitorName - [${postedDate}]";
     }
 }

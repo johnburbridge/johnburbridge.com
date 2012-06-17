@@ -1,8 +1,8 @@
 include ':apps:example',
   ':apps:jukebox',
   ':common',
-// removeing the grails project until the plugin issues are resolved
-//  ':grails:blog',
+// removing the grails project until the plugin issues are resolved
+  ':grails:blog',
   ':install',
   ':servers',
   ':webapps:ROOT';

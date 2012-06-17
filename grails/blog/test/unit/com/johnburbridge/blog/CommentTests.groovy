@@ -17,22 +17,23 @@ class CommentTests extends GrailsUnitTestCase {
     }
 
 	void testConstraints() {
-		assertTrue(getNewComment().validate());
+		assertTrue(getNewComment(new Date()).validate());
 		assertFalse(new Comment().validate());
 	}
 
     void testToString() {
-		def comment = getNewComment();
-		assertEquals('anonymous - [Wed Dec 31 16:00:00 PST 1969]', comment.toString());
+		def date = new Date();
+		def comment = getNewComment(date);
+		assertEquals(new String("anonymous - [${date}]"), comment.toString());
     }
 	
-	static Comment getNewComment() {
+	static Comment getNewComment(Date date) {
 		def post = PostTests.getNewPost();
 		new Comment(
 			post: post,
 			visitorName: 'anonymous',
 			visitorEmail: 'foo@bar.com',
-			postedDate: new Date(0),
+			postedDate: date,
 			body: 'I like it!'
 		);
 	}
