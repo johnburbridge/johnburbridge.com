@@ -84,7 +84,7 @@ subprojects {
         if (rootProject.hasProperty('artifactory_username') && rootProject.hasProperty('artifactory_password')) {
             repositories.mavenDeployer {
                 // depending on the buildStage property we may either want to deploy to the snapshot repo
-                if (rootProject.hasProperty('buildStage') && buildStage == 'release') {
+                if (rootProject.hasProperty('environment') && environment == 'release') {
                     name = 'releaseDeployer';
                     repository(url: "${repositoryGradleLocalUrl}") {
                         authentication(userName: "${artifactory_username}", password: "${artifactory_password}");
@@ -92,7 +92,7 @@ subprojects {
                 // or deploy to the release repo
                 } else {
                     name = 'snapshotDeployer';
-                    repository(url: "${repositoryGradleLocalUrl}") {
+                    repository(url: "${snapshotRepoUrl}") {
                         authentication(userName: "${artifactory_username}", password: "${artifactory_password}");
                     }
                 }

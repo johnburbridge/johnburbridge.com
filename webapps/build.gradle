@@ -44,12 +44,20 @@ subprojects {
      * see the ~/.gradle/gradle.properties for more details on the credentials
      **/
     uploadArchives {
-        repositories {
-            ivy {
-                url "${repositoryGradleLocalUrl}";
-                credentials {
-                    username "${artifactory_username}";
-                    password "${artifactory_password}";
+        if (rootProject.hasProperty('artifactory_username') && rootProject.hasProperty('artifactory_password')) {
+            repositories.mavenDeployer {
+                // depending on the buildStage property we may either want to deploy to the snapshot repo
+                if (rootProject.hasProperty('environment') && environment == 'release') {
+                    name = 'releaseDeployer';
+                    repository(url: "${repositoryGradleLocalUrl}") {
+                        authentication(userName: "${artifactory_username}", password: "${artifactory_password}");
+                    }
+                // or deploy to the release repo
+                } else {
+                    name = 'snapshotDeployer';
+                    repository(url: "${snapshotRepoUrl}") {
+                        authentication(userName: "${artifactory_username}", password: "${artifactory_password}");
+                    }
                 }
             }
         }
