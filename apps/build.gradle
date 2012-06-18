@@ -21,8 +21,8 @@ subprojects {
         apply from: rootDir.path + '/cobertura.gradle';
     }
 
-    sourceCompatibility = 1.7;
-    targetCompatibility = 1.7;
+    sourceCompatibility = 1.6;
+    targetCompatibility = 1.6;
     
     dependencies {
         compile 'commons-collections:commons-collections:3.2';
@@ -35,22 +35,72 @@ subprojects {
     }
 
     /**
-     * see the ~/.gradle/gradle.properties for more details on the credentials
+    * Adding the intergration-test folder to each java project
+    **/
+   sourceSets {
+       integration
+   }
+   
+   jar {
+       manifest {
+           attributes 'Implementation-Title': project.name,
+                      'Implementation-Vendor': 'John Burbridge',
+                      'Implementation-Version': version;
+       }
+   }
+   
+    // produce a jar file for our test classes
+    task testJar(type: Jar, dependsOn: test) {
+       classifier = 'tests'
+       from sourceSets.test.output
+    }
+   
+   // produce a jar file for our source files
+    task sourceJar(type: Jar, dependsOn: classes) {
+       classifier = 'sources'
+       from sourceSets.test.java
+    }
+   
+    // produce a jar file for our javadoc
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+       classifier = 'javadocs'
+       from javadoc.destinationDir
+    }
+   
+    // add all of the artifacts above to our archives list
+    artifacts {
+       archives testJar
+       archives sourceJar
+       archives javadocJar
+    }
+   
+    /**
+     * configure a maven deployer to upload artifacts to the correct repository (snapshot or release) 
+     * dependening on what buildStage we are running under. 
+     * 
+     * also, see the ~/.gradle/gradle.properties for more details on the artifactory credentials
      **/
     uploadArchives {
-        repositories {
-            ivy {
-                url "${repositoryGradleLocalUrl}";
-                credentials {
-                    username "${artifactory_username}";
-                    password "${artifactory_password}";
+        if (rootProject.hasProperty('artifactory_username') && rootProject.hasProperty('artifactory_password')) {
+            repositories.mavenDeployer {
+                // depending on the buildStage property we may either want to deploy to the snapshot repo
+                if (rootProject.hasProperty('buildStage') && buildStage == 'release') {
+                    name = 'releaseDeployer';
+                    repository(url: "${repositoryGradleLocalUrl}") {
+                        authentication(userName: "${artifactory_username}", password: "${artifactory_password}");
+                    }
+                // or deploy to the release repo
+                } else {
+                    name = 'snapshotDeployer';
+                    repository(url: "${repositoryGradleLocalUrl}") {
+                        authentication(userName: "${artifactory_username}", password: "${artifactory_password}");
+                    }
                 }
             }
         }
     }
     uploadArchives.dependsOn(build);
-    
-   
+       
     task initProject << {
         sourceSets.all*.java.srcDirs*.each { it.mkdirs() }
         sourceSets.all*.resources.srcDirs*.each { it.mkdirs() }
