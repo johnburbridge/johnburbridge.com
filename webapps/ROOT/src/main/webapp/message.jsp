@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.johnburbridge.email.EmailSender" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <jsp:include page="header-include.jsp">
@@ -21,22 +21,45 @@
   </tr>
 </table>
 <p>&nbsp;</p>
-<form>
+<%
+	if (EmailSender.validateParamsNotNull(request)) {
+
+		try {
+			  EmailSender.sendMessage(request);
+
+            %><p class="normalGreyText">Email Sent.</p><% 
+
+        } catch (Exception e) {
+        	
+        	%><p class="errorMessage">An error occurred while sending you message: <%= e.getMessage() %><%
+        }
+
+	} else { 
+%>
+
+<form method="POST">
 <table>
   <tr>
-    <td class="formfields">Your name:</td><td><input type=text name="visitorName" maxlength="40" /></td>
+    <td class="formfields">Your name:</td>
+    <td class="formfields"><input type=text name="visitorName" maxlength="60" /></td>
   </tr>
   <tr>
-    <td class="formfields">Your email:</td><td><input type=text name="visitorEmail" maxlength="40"/></td>
+    <td class="formfields">Your email:</td>
+    <td class="formfields"><input type=text name="visitorEmail" maxlength="60"/></td>
   </tr>
   <tr>
-    <td class="formfields">Your message:</td><td><textarea name="visitorMessage" rows="10"></textarea></td>
+    <td class="formfields">Your message:</td>
+    <td class="formfields"><textarea name="visitorMessage" rows="10" cols="40"></textarea></td>
   </tr>
   <tr>
-    <td class="formfields"></td><td><input type=submit value="Send"/></td>
+    <td class="formfields"></td>
+    <td class="formfields"><input type=submit value="Send"/></td>
   </tr>
 </table>
 </form>
+
+<% } %>
+
 </div>
 </body>
 </html>

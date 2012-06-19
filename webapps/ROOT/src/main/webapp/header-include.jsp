@@ -6,7 +6,7 @@
 <style type="text/css">
 h1 {
   font-family: Verdana, Arial, Helvetica;
-  font-size: 30pt;
+  font-size: 26pt;
   letter-spacing: 3pt;
   color: #666666;
 }
@@ -32,10 +32,23 @@ a:hover {
   font-size: 18pt;
   text-align: center;
 }
+.normalGreyText {
+  font-family: Verdana, Arial, Helvetica;
+  font-size: 12pt;
+  color: #666666;
+}
+
 .formfields {
   font-family: Verdana, Arial, Helvetica;
   font-size: 12pt;
   color: #666666;
+  text-align: left;
+}
+.errorMessage {
+  font-family: Verdana, Arial, Helvetica;
+  font-size: 12pt;
+  color: red;
+  text-align: center;
 }
 </style>
 <script type="text/javascript">
