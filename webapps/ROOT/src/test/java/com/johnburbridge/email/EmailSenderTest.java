@@ -4,17 +4,14 @@ import static com.johnburbridge.email.EmailSender.*;
 
 import static org.junit.Assert.*;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.internal.matchers.Any;
 
 /**
  * @author jburbridge
- * @since 
+ * @since 6/19/2012
  */
 public class EmailSenderTest {
 
