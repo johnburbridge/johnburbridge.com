@@ -3,7 +3,70 @@
  * and the gradlewrapper 
  */
 
-description = "Tasks for setting up the project's tools such ash apache httpd, tomcat and gradlew"
+description = "Tasks for setting up the project's tools such as jetty, apache httpd, tomcat and grails"
+
+def jettyBaseName = 'jetty-distribution-' + jettyVersion;
+def jettyZipFile =  jettyBaseName + '.zip'; 
+def jettyZipFileLocation = project.buildDir.toString() + '/tmp/' + jettyZipFile;
+def jettyDownloadUrl = artifactoryRoot + '/tools/jetty/' + jettyZipFile;
+
+/**
+ * Downloads a copy of jetty from the local repository if it hasn't already been downloaded
+ */
+task downloadJetty {
+	outputs.file file(jettyZipFileLocation);
+	doLast {
+		file(project.buildDir.toString() + '/tmp/').mkdirs();
+		ant.get(src: jettyDownloadUrl, dest: jettyZipFileLocation, verbose: true);
+	}
+}
+
+/**
+ * Expand the downloaded archive if it hasn't already been expanded
+ */
+task explodeJettyServer(dependsOn: downloadJetty) {
+	inputs.file file(jettyZipFileLocation);
+	outputs.dir file(jettyBaseName);
+	doLast {
+		copy {
+			from zipTree(jettyZipFileLocation);
+			into project.projectDir;
+			include jettyBaseName + '/start.*';
+			include jettyBaseName + '/bin/**';
+			include jettyBaseName + '/contexts/**';
+			include jettyBaseName + '/etc/**';
+			include jettyBaseName + '/lib/**';
+			include jettyBaseName + '/logs/**';
+			include jettyBaseName + '/overlays/**';
+			include jettyBaseName + '/resources/**';
+			include jettyBaseName + '/webapps/**';
+		}
+		// make sure that the shell scripts are set +x on linux / macs
+		if (System.getProperty("os.name").toLowerCase().indexOf("win") < 0) {
+			FileTree tree = fileTree(jettyBaseName + '/bin').include('**/*.sh');
+			tree.each { File file ->
+				logger.info('Setting +x permission on ' + file);
+				file.setExecutable(true);
+			}
+		}
+	}
+}
+
+/**
+ * Runs Jetty after installing it
+ */
+task runJetty(dependsOn: explodeJettyServer) << {
+	def jettyHome = rootProject.projectDir.toString() + jettyHome;
+	def jarFile = jettyHome + '/start.jar';
+	javaexec {
+		classpath = files { new File(jettyHome + '/lib').listFiles() };
+		main = '-jar';
+		args([jarFile, jettyHome + '/etc/jetty.xml']);
+		systemProperty('jetty.home', jettyHome);
+		systemProperty('jetty.port', 8082);
+		workingDir(jettyHome);
+	}
+}
 
 def tomcatBaseName = 'apache-tomcat-' + tomcatVersion;
 def tomcatZipFile = tomcatBaseName + '.zip';

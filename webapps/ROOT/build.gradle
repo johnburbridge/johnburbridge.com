@@ -44,6 +44,7 @@ cargo {
         hostname = 'localhost';
         username = 'jburbridge';
     }
+    
     local {
         homeDir = file(project.rootDir.toString() + tomcatHome);
     }
@@ -58,7 +59,7 @@ task integrationTest(type: Test) {
 }
 
 // slot the integration tests into our build cycle -  after war, assembly and regular checks, but before build
-cargoStartLocal.dependsOn([assemble, check, project(':install').explodeTomcatServer]);
+cargoStartLocal.dependsOn([assemble, check, project(':install').explodeJettyServer]);
 integrationTest.dependsOn(cargoStartLocal);
 cargoStopLocal.dependsOn(integrationTest);
 build.dependsOn(cargoStopLocal);
