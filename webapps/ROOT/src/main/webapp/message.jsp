@@ -31,7 +31,7 @@
 
         } catch (Exception e) {
         	
-        	%><p class="errorMessage">An error occurred while sending you message: <%= e.getMessage() %><%
+        	%><p class="errorMessage">An error occurred while sending your message:<br/><%= e.getMessage() %></p><%
         }
 
 	} else { 
