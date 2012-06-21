@@ -23,8 +23,7 @@ subprojects {
     
     dependencies {
         
-        providedCompile 'javax.servlet:servlet-api:2.5';
-        //providedCompile 'javax:javaee-web-api:6.0'; TODO: figure out servlet-api 3.0
+        providedCompile 'javax.servlet:javax.servlet-api:3.0.1';
         providedRuntime 'org.eclipse.jetty.aggregate:jetty-server:8.1.2.v20120308';
         
         testCompile 'junit:junit:4.+';
