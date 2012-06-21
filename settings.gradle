@@ -1,5 +1,6 @@
 include ':apps:example',
   ':apps:jukebox',
+  ':apps:www',
   ':common',
   ':grails:blog',
   ':install',

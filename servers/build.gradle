@@ -28,18 +28,6 @@ task stopCIServer(type: Exec) {
     executable(catalinaHome + shutDown);
 }
 
-task startWwwServer(type: Exec) {
-    environment('CATALINA_HOME',  catalinaHome);
-    environment('CATALINA_BASE', getCatalinaBaseDir('www'));
-    executable(catalinaHome + startUp);
-}
-
-task stopWwwServer(type: Exec) {
-    environment('CATALINA_HOME',  catalinaHome);
-    environment('CATALINA_BASE', getCatalinaBaseDir('www'));
-    executable(catalinaHome + shutDown);
-}
-
 public String getCatalinaBaseDir(String serverName) {
     return project.projectDir.toString() + '/' + serverName;
 }
